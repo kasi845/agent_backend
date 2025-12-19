@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Analyzer - Powered by Gemini</title>
+    <meta name="description" content="Upload and analyze images with advanced AI-powered description generation using Google's Gemini API">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-gradient"></div>
+    <div class="background-pattern"></div>
+    
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="40" height="40" rx="12" fill="url(#gradient1)"/>
+                    <path d="M20 10L26 16L20 22L14 16L20 10Z" fill="white" opacity="0.9"/>
+                    <path d="M20 18L26 24L20 30L14 24L20 18Z" fill="white" opacity="0.6"/>
+                    <defs>
+                        <linearGradient id="gradient1" x1="0" y1="0" x2="40" y2="40">
+                            <stop offset="0%" stop-color="#667eea"/>
+                            <stop offset="100%" stop-color="#764ba2"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>AI Image Analyzer</h1>
+            </div>
+            <div class="powered-by">
+                <span>Powered by</span>
+                <span class="gemini-badge">Gemini AI</span>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="upload-section" id="uploadSection">
+                <div class="upload-card">
+                    <div class="upload-icon">
+                        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="40" cy="40" r="40" fill="url(#gradient2)" opacity="0.1"/>
+                            <path d="M40 25V55M40 25L30 35M40 25L50 35" stroke="url(#gradient2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M25 55H55" stroke="url(#gradient2)" stroke-width="3" stroke-linecap="round"/>
+                            <defs>
+                                <linearGradient id="gradient2" x1="0" y1="0" x2="80" y2="80">
+                                    <stop offset="0%" stop-color="#667eea"/>
+                                    <stop offset="100%" stop-color="#764ba2"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h2>Upload Your Image</h2>
+                    <p>Drag and drop an image here, or click to browse</p>
+                    <input type="file" id="imageInput" accept="image/*" hidden>
+                    <button class="upload-btn" id="uploadBtn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 4V16M10 4L6 8M10 4L14 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Choose Image
+                    </button>
+                    <div class="supported-formats">
+                        <span>Supported formats: JPG, PNG, GIF, WebP</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-section hidden" id="previewSection">
+                <div class="preview-card">
+                    <div class="preview-header">
+                        <h3>Image Preview</h3>
+                        <button class="change-btn" id="changeBtn">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 8C2 8 4 4 8 4C12 4 14 8 14 8C14 8 12 12 8 12C4 12 2 8 2 8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                            Change Image
+                        </button>
+                    </div>
+                    <div class="image-container">
+                        <img id="previewImage" src="" alt="Preview">
+                    </div>
+                    <button class="analyze-btn" id="analyzeBtn">
+                        <span class="btn-text">Analyze Image</span>
+                        <span class="btn-loader hidden">
+                            <svg class="spinner" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="10" cy="10" r="8" stroke="white" stroke-width="3" stroke-linecap="round" stroke-dasharray="50.265" stroke-dashoffset="12.566"/>
+                            </svg>
+                            Analyzing...
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="results-section hidden" id="resultsSection">
+                <div class="results-card">
+                    <div class="results-header">
+                        <h3>AI Analysis Results</h3>
+                        <div class="confidence-badge">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 1L10.163 5.38197L15 6.12257L11.5 9.52786L12.326 14.3607L8 12.118L3.674 14.3607L4.5 9.52786L1 6.12257L5.837 5.38197L8 1Z" fill="currentColor"/>
+                            </svg>
+                            AI Generated
+                        </div>
+                    </div>
+                    <div class="description-content" id="descriptionContent">
+                        <!-- Description will be inserted here -->
+                    </div>
+                    <div class="results-actions">
+                        <button class="copy-btn" id="copyBtn">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="6" y="6" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M12 6V4C12 2.89543 11.1046 2 10 2H4C2.89543 2 2 2.89543 2 4V10C2 11.1046 2.89543 12 4 12H6" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                            Copy Description
+                        </button>
+                        <button class="new-analysis-btn" id="newAnalysisBtn">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 2V16M2 9H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            New Analysis
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="error-section hidden" id="errorSection">
+                <div class="error-card">
+                    <div class="error-icon">
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="30" cy="30" r="30" fill="#ff6b6b" opacity="0.1"/>
+                            <path d="M30 20V32M30 38V40" stroke="#ff6b6b" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3>Oops! Something went wrong</h3>
+                    <p id="errorMessage">An error occurred while analyzing the image.</p>
+                    <button class="retry-btn" id="retryBtn">Try Again</button>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Built with ❤️ using Google Gemini AI</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
