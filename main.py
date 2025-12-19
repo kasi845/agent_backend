@@ -52,7 +52,7 @@ app.add_middleware(
 # GEMINI AI CONFIGURATION
 # ============================================
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-DEMO_MODE = os.getenv("DEMO_MODE", "true").lower() == "true"  # Enable demo mode by default
+DEMO_MODE = os.getenv("DEMO_MODE", "false").lower() == "true"  # Disabled by default - use real API
 
 if not GEMINI_API_KEY or GEMINI_API_KEY == "your_gemini_api_key_here":
     logger.warning("⚠️  GEMINI_API_KEY not configured!")

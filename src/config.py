@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     
     # API Configuration
     GEMINI_API_KEY: Optional[str] = None
-    DEMO_MODE: bool = True
+    DEMO_MODE: bool = False  # Disabled by default - use real API
     
     # Application Info
     APP_NAME: str = "AI Image Analyzer"
